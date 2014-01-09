@@ -1,0 +1,233 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: movies; Type: TABLE; Schema: public; Owner: movie; Tablespace: 
+--
+
+CREATE TABLE movies (
+    movie_id integer NOT NULL,
+    title text NOT NULL,
+    genre text NOT NULL,
+    location text
+);
+
+
+ALTER TABLE public.movies OWNER TO movie;
+
+--
+-- Name: movies_movie_id_seq; Type: SEQUENCE; Schema: public; Owner: movie
+--
+
+CREATE SEQUENCE movies_movie_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.movies_movie_id_seq OWNER TO movie;
+
+--
+-- Name: movies_movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: movie
+--
+
+ALTER SEQUENCE movies_movie_id_seq OWNED BY movies.movie_id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: movie; Tablespace: 
+--
+
+CREATE TABLE users (
+    user_id integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO movie;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: movie
+--
+
+CREATE SEQUENCE users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO movie;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: movie
+--
+
+ALTER SEQUENCE users_user_id_seq OWNED BY users.user_id;
+
+
+--
+-- Name: votes; Type: TABLE; Schema: public; Owner: movie; Tablespace: 
+--
+
+CREATE TABLE votes (
+    user_id integer NOT NULL,
+    movie_id integer NOT NULL
+);
+
+
+ALTER TABLE public.votes OWNER TO movie;
+
+--
+-- Name: movie_id; Type: DEFAULT; Schema: public; Owner: movie
+--
+
+ALTER TABLE ONLY movies ALTER COLUMN movie_id SET DEFAULT nextval('movies_movie_id_seq'::regclass);
+
+
+--
+-- Name: user_id; Type: DEFAULT; Schema: public; Owner: movie
+--
+
+ALTER TABLE ONLY users ALTER COLUMN user_id SET DEFAULT nextval('users_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: movie
+--
+
+COPY movies (movie_id, title, genre, location) FROM stdin;
+4	Casablanca	Romance	Lighthouse Cinema
+5	The Third Man	Drama	Embassy Theatre
+6	Schindler's List	Historical	Reading Cinemas
+7	Some Like It Hot	Comedy	Paramount Cinema
+8	Zardoz	Science Fiction	Reading Cinemas
+\.
+
+
+--
+-- Name: movies_movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: movie
+--
+
+SELECT pg_catalog.setval('movies_movie_id_seq', 8, true);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: movie
+--
+
+COPY users (user_id, name) FROM stdin;
+1	John
+2	Mary
+3	Andy
+4	Kath
+\.
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: movie
+--
+
+SELECT pg_catalog.setval('users_user_id_seq', 4, true);
+
+
+--
+-- Data for Name: votes; Type: TABLE DATA; Schema: public; Owner: movie
+--
+
+COPY votes (user_id, movie_id) FROM stdin;
+\.
+
+
+--
+-- Name: movies_pkey; Type: CONSTRAINT; Schema: public; Owner: movie; Tablespace: 
+--
+
+ALTER TABLE ONLY movies
+    ADD CONSTRAINT movies_pkey PRIMARY KEY (movie_id);
+
+
+--
+-- Name: users_name_key; Type: CONSTRAINT; Schema: public; Owner: movie; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_name_key UNIQUE (name);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: movie; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: votes_once; Type: CONSTRAINT; Schema: public; Owner: movie; Tablespace: 
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_once UNIQUE (user_id, movie_id);
+
+
+--
+-- Name: votes_movie_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: movie
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_movie_id_fkey FOREIGN KEY (movie_id) REFERENCES movies(movie_id);
+
+
+--
+-- Name: votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: movie
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
