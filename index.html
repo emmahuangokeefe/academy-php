@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Movie Night Vote</title>
+  <link type="text/css" href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <header>
+
+      <div id="user-info">
+        <a href="login.html">Log in</a>
+        <a href="admin.html">Site admin</a>
+      </div>
+
+      <h1>Movie Night Vote</h1>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">This week's vote</a></li>
+          <li><a href="results.html">This week's results</a></li>
+          <li><a href="previous.html">Previous results</a></li>
+          <li><a href="about.html">About this site</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+    </header>
+
+    <div id="content">
+
+      <h2>This week's vote:</h2>
+
+      <form method="POST" action="results.html">
+
+        <div id="movies">
+
+          <p>Which of the following movies would you like to see on the next Movie Night?<br>Pick your choice below!</p>
+
+          <p class="movie">
+            <label for="vote_1"><img class="poster" alt="The Amazing Spider-Man" src="img/spiderman.jpg"> The Amazing Spider-Man</label> <input type="radio" id="vote_1" value="1" name="vote">
+            <span class="synopsis">Peter Parker finds a clue that might help him understand why his parents disappeared when he was young. His path puts him on a collision course with Dr. Curt Connors. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_2"><img class="poster" alt="The Incredible Hulk" src="img/hulk.jpg"> The Incredible Hulk</label> <input type="radio" id="vote_2" value="2" name="vote">
+            <span class="synopsis">Dr. Bruce Banner, thanks to a gamma ray experiment gone wrong, transforms into a giant green-skinned hulk whenever his pulse rate gets too high. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_3"><img class="poster" alt="The Avengers" src="img/avengers.jpg"> The Avengers</label> <input type="radio" id="vote_3" value="3" name="vote">
+            <span class="synopsis">Nick Fury of S.H.I.E.L.D. brings together a team of super humans to form The Avengers to help save the Earth from Loki and his army.</span>
+          </p>
+          <p class="movie">
+            <label for="vote_4"><img class="poster" alt="The Dark Knight Rises" src="img/dkr.jpg"> The Dark Knight Rises</label> <input type="radio" id="vote_4" value="4" name="vote">
+            <span class="synopsis">Eight years on, a new terrorist leader, Bane, overwhelms Gotham's finest, and the Dark Knight resurfaces to protect a city that has branded him an enemy. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_5"><img class="poster" alt="Immortals" src="img/immortals.jpg"> Immortals</label> <input type="radio" id="vote_5" value="5" name="vote">
+            <span class="synopsis">The brutal and bloodthirsty King Hyperion (Mickey Rourke) and his murderous Heraklion army are rampaging across Greece in search of the long lost Bow of Epirus. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_6"><img class="poster" alt="Men in Black III" src="img/mib3.jpg"> Men in Black III</label> <input type="radio" id="vote_6" value="6" name="vote">
+            <span class="synopsis">In Men in Black 3, Agents J (Will Smith) and K (Tommy Lee Jones) are back...in time. J has seen some inexplicable things in his 15 years with the Men in Black, but nothing, not even aliens, perplexes him. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_7"><img class="poster" alt="Wreck It Ralph" src="img/wreckit.jpg"> Wreck It Ralph</label> <input type="radio" id="vote_7" value="7" name="vote">
+            <span class="synopsis">Ralph (John C. Reilly) is tired of being overshadowed by Fix-It Felix (Jack McBrayer), the "good guy" star of their game who always gets to save the day. </span>
+          </p>
+          <p class="movie">
+            <label for="vote_8"><img class="poster" alt="Skyfall" src="img/skyfall.jpg"> Skyfall</label> <input type="radio" id="vote_8" value="8" name="vote">
+            <span class="synopsis">In Skyfall, Bond's loyalty to M is tested as her past comes back to haunt her. As MI6 comes under attack, 007 must track down and destroy the threat, no matter how personal the cost. </span>
+          </p>
+
+          <input type="submit" value="Vote!" id="vote_button">
+
+        </div>
+
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="small">A page by [your name]</p>
+  </footer>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+
+</html>
