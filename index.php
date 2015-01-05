@@ -44,21 +44,21 @@
           <p>Which of the following movies would you like to see on the next Movie Night?<br>Pick your choice below!</p>
 
           <?php
-          // get all the movies
-          $movies = pg_query($conn, "SELECT * FROM movies");
+          // Get all the movies.
+          $query = $pdo->query("SELECT * FROM movies");
 
           // display the movies one by one in a table row
-          while($movie = pg_fetch_object($movies)) {
+          while ($movie = $query->fetch(PDO::FETCH_OBJ)) {
             print '<p class="movie">';
-            print "<label for='vote_$movie->movie_id'>";
+            print "<label for='vote_$movie->id'>";
 
             // Check for cache (faster).
-            $image_file = './cache/movie-' . $movie->movie_id . '.jpg';
-            $synopsis_file = './cache/movie-' . $movie->movie_id . '.txt';
+            $image_file = './cache/movie-' . $movie->id . '.jpg';
+            $synopsis_file = './cache/movie-' . $movie->id . '.txt';
             if (!file_exists($image_file) || isset($_GET['no-cache'])) {
               // pull down rotten tomatoes love
               // @see http://developer.rottentomatoes.com/iodocs
-              $url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=" . urlencode($movie->title) . "&page_limit=1&page=1&apikey=5txumzsgfr829mj4vp832y97";
+              $url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=" . urlencode($movie->name) . "&page_limit=1&page=1&apikey=5txumzsgfr829mj4vp832y97";
               $json = file_get_contents($url);
               $data = json_decode($json, TRUE);
 
@@ -85,13 +85,14 @@
             }
 
             // The title will not contain XSS right?
-            print "<img class='poster' src='$image_file' alt='$movie->title' />";
+            print "<img class='poster' src='$image_file' alt='$movie->name' />";
             print '</label>';
-            print "<input type='radio' name='vote' value='$movie->movie_id' id='vote_$movie->movie_id' />";
-            print $movie->title;
+            print "<input type='radio' name='vote' value='$movie->id' id='vote_$movie->id' />";
+            print $movie->name;
 
             // Sure hope there is nothing malicious in this text file.
-            print '<span class="synopsis">' . substr(file_get_contents($synopsis_file), 0, 200) . '&hellip;</p>';
+            print '<span class="synopsis">' . substr(file_get_contents($synopsis_file), 0, 200) . '&hellip; ';
+            print "[$movie->length minutes]";
             print '</p>';
           }
 

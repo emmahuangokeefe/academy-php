@@ -37,8 +37,8 @@
 
       <?php
       // display success message
-      if (isset($_GET['success'])) {
-        print '<strong>You voted!</strong>';
+      if (isset($_GET['success']) && $_GET['success'] == '1') {
+        print '<strong>You voted successfully!</strong>';
       }
 
       ?>
@@ -53,18 +53,18 @@
         </thead>
         <tbody>
           <?php
-          // get all the movies
-          $movies = pg_query($conn, "SELECT * FROM movies");
+          // Get all the movies.
+          $query = $pdo->query("SELECT * FROM movies");
 
-          // loop around each movie, and see if it has teh votez
-          while($movie = pg_fetch_object($movies)) {
-            // do another database query to count the votes for this movie
-            $votes = pg_fetch_object(pg_query($conn, "SELECT count(*) FROM votes WHERE movie_id = $movie->movie_id"));
-            if ($votes->count > 0) {
+          // Loop around each movie, and see if it has teh votez.
+          while($movie = $query->fetch(PDO::FETCH_OBJ)) {
+            // Do another database query to count the votes for this movie.
+            $votes = $pdo->query("SELECT * FROM votes WHERE movie_id = $movie->id")->rowCount();
+            if ($votes > 0) {
               print '<tr><td>';
-              print $movie->title;
+              print $movie->name;
               print '</td><td>';
-              print $votes->count;
+              print $votes;
               print '</td></tr>';
             }
           }
