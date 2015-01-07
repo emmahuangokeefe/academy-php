@@ -41,13 +41,31 @@
 
         <div id="movies">
 
+          <p>
+            Hi
+            <select name="name">
+              <?php
+                // Get all the users.
+                $query = $pdo->query("SELECT * FROM people");
+
+                // Display the users one by one in the dropdown.
+                while ($person = $query->fetch(PDO::FETCH_OBJ)) {
+                  print "<option value='$person->id'>$person->name</option>";
+                }
+
+              ?>
+
+            </select>
+            !
+          </p>
+
           <p>Which of the following movies would you like to see on the next Movie Night?<br>Pick your choice below!</p>
 
           <?php
           // Get all the movies.
           $query = $pdo->query("SELECT * FROM movies");
 
-          // display the movies one by one in a table row
+          // Display the movies one by one in a table row.
           while ($movie = $query->fetch(PDO::FETCH_OBJ)) {
             print '<p class="movie">';
             print "<label for='vote_$movie->id'>";

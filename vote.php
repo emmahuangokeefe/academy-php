@@ -9,7 +9,7 @@ try {
 
   // Get the variables for the insert. These should be validated first.
   $id = NULL;
-  $person_id = 1;
+  $person_id = $_GET['name'];
   $movie_id = $_GET['vote'];
 
   $stmt->bindParam(':id', $id);
