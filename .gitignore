@@ -1,2 +1,4 @@
 .project
-cache/*
+cache/*.png
+cache/*.jpg
+cache/*.txt
